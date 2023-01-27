@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/assets/files/GameLvlInfo.dart';
 import 'custom_widget/custom_ListView.dart';
 import 'custom_widget/showDialog.dart';
 import 'gamedes.dart';
@@ -15,17 +14,16 @@ class GameCategoty extends StatelessWidget {
         child: CustomAppBar(
           title: 'Game Category',
           edit: () {
-             showgamecat(context);
+            showgamecat(context);
           },
         ),
       ),
       body: Center(
         child: CustomListViewGameCat(
           onPressed: () {
-                       Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) =>  GameDescription(),
-                       ));
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => GameDescription(),
+            ));
           },
         ),
       ),
@@ -38,5 +36,3 @@ class GameCategoty extends StatelessWidget {
     );
   }
 }
-
-

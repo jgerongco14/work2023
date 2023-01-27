@@ -42,6 +42,8 @@ class CustomTextField extends StatelessWidget {
     this.fontStyle,
     this.txtColor,
     this.fontsize,
+    this.chooseIcon,
+    this.onPressed,
     Key? key,
   }) : super(key: key);
 
@@ -51,6 +53,8 @@ class CustomTextField extends StatelessWidget {
   FontWeight? fontWeight;
   String? fontStyle;
   double? fontsize;
+  IconData? chooseIcon;
+  VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +66,10 @@ class CustomTextField extends StatelessWidget {
           fontWeight: fontWeight ?? FontWeight.normal,
           fontSize: fontsize ?? 12,
           fontFamily: fontStyle,
+        ),
+        suffixIcon: IconButton(
+          onPressed: onPressed,
+          icon: Icon(chooseIcon),
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(width: 1),
@@ -198,4 +206,3 @@ class _SwitchExampleState extends State<SwitchExample> {
     );
   }
 }
-

@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import '../assets/files/GameLvlInfo.dart';
+import 'package:flutter/material.dart';
 import 'custom_form.dart';
+import 'package:file_picker/file_picker.dart';
 
 showgamecat(BuildContext context) {
   showDialog(
@@ -109,6 +110,16 @@ showgamecat(BuildContext context) {
   );
 }
 
+  File? finalFile;
+
+Future<void> chosenFile() async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles();
+  if (result != null) {
+    File file = File(result.files.single.path?? "");
+    finalFile = file;
+  }
+}
+
 //Game Level
 showgamelvl(BuildContext context) {
   showDialog(
@@ -181,22 +192,31 @@ showgamelvl(BuildContext context) {
                                 fontsize: 20,
                               )),
                           SizedBox(
-                              height: 35,
-                              width: 300,
-                              child: CustomTextField(
-                                fontsize: 20,
-                              )),
+                            height: 35,
+                            width: 300,
+                            child: CustomTextField(
+                              fontsize: 20,
+                            ),
+                          ),
                           SizedBox(
                               height: 35,
                               width: 300,
                               child: CustomTextField(
-                                fontsize: 20,
+                                bottxt: finalFile.toString(),
+                                onPressed: () {
+                                  chosenFile();
+                                },
+                                chooseIcon: Icons.image,
                               )),
-                          SizedBox(
+                              SizedBox(
                               height: 35,
                               width: 300,
                               child: CustomTextField(
-                                fontsize: 20,
+                                bottxt: finalFile.toString(),
+                                onPressed: () {
+                                  chosenFile();
+                                },
+                                chooseIcon: Icons.audio_file,
                               )),
                         ],
                       ),
@@ -234,97 +254,99 @@ showgamelvl(BuildContext context) {
   );
 }
 
-
 //Display Game Level Details
 showGameDetails(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      var answer;
       return AlertDialog(
-      content: SizedBox(
-          height: 400,
-          width: 600,
-          child: Column(
-            children: [
-              Expanded(
-                child: Column(
+        content: SizedBox(
+            height: 400,
+            width: 600,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Image.network(
+                            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                            width: 250,
+                            height: 250,
+                            fit: BoxFit.cover,
+                          ),
+                          Column(
+                            children: [
+                              CustomText(
+                                text: '1', //gameLvl.answer,
+                                textColor: Colors.black,
+                                fontSize: 25,
+                                fontFamily: 'roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              CustomText(
+                                text: '2', //gameLvl.randomLetter,
+                                textColor: Colors.black,
+                                fontSize: 25,
+                                fontFamily: 'roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              CustomText(
+                                text: '3', //gameLvl.level,
+                                textColor: Colors.black,
+                                fontSize: 25,
+                                fontFamily: 'roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: CustomButton(
+                            bottxt: 'Play Audio', elevatedbot: () {}),
+                      )
+                    ],
+                  ),
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Image.network(
-                          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
-                          width: 250,
-                          height: 250,
-                          fit: BoxFit.cover,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: CustomButton(
+                          elevatedbot: () {},
+                          bottxt: 'Delete',
                         ),
-                        Column(
-                          children: [
-                            CustomText(
-                              text:'1' ,//gameLvl.answer,
-                              textColor: Colors.black,
-                              fontSize: 25,
-                              fontFamily: 'roboto',
-                              fontWeight: FontWeight.bold,
-                            ),
-                            const SizedBox(height: 50,),
-                            CustomText(
-                              text:'2', //gameLvl.randomLetter,
-                              textColor: Colors.black,
-                              fontSize: 25,
-                              fontFamily: 'roboto',
-                              fontWeight: FontWeight.bold,
-                            ),
-                            const SizedBox(height: 50,),
-                            CustomText(
-                              text:'3', //gameLvl.level,
-                              textColor: Colors.black,
-                              fontSize: 25,
-                              fontFamily: 'roboto',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                    SizedBox(
-                      width: 300,
-                      child: CustomButton(
-                          bottxt: 'Play Audio', elevatedbot: () {}),
-                    )
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: CustomButton(
+                          elevatedbot: () {},
+                          bottxt: 'Edit',
+                        ),
+                      ),
+                    ),
                   ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: CustomButton(
-                        elevatedbot: () {},
-                        bottxt: 'Delete',
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: CustomButton(
-                        elevatedbot: () {},
-                        bottxt: 'Edit',
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          )),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(2.0))),
-    );
+                )
+              ],
+            )),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(2.0))),
+      );
     },
   );
 }

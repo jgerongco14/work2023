@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-import 'package:my_app/assets/files/GameLvlInfo.dart';
 import 'package:my_app/custom_widget/custom_form.dart';
 import 'custom_widget/custom_ListView.dart';
 import 'custom_widget/showDialog.dart';
