@@ -23,7 +23,7 @@ class GameDescription extends StatelessWidget {
         body: Stack(
           children: <Widget>[
             CustomListViewGameLvl(onPressed: () {
-               showGameDetails(context);
+              showGameDetails(context);
             }),
             Positioned(
                 bottom: 0,
@@ -42,4 +42,3 @@ class GameDescription extends StatelessWidget {
         ));
   }
 }
-

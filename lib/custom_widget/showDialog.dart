@@ -1,8 +1,9 @@
-import 'dart:io';
 
+// ignore_for_file: avoid_print
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'custom_form.dart';
-import 'package:file_picker/file_picker.dart';
 
 showgamecat(BuildContext context) {
   showDialog(
@@ -110,15 +111,39 @@ showgamecat(BuildContext context) {
   );
 }
 
-  File? finalFile;
-
-Future<void> chosenFile() async {
-  FilePickerResult? result = await FilePicker.platform.pickFiles();
-  if (result != null) {
-    File file = File(result.files.single.path?? "");
-    finalFile = file;
+void chooseImage() async {
+  try {
+    final filePickerResult = await FilePicker.platform.pickFiles(type: FileType.image);
+    
+    // print(imagepicked?.path);
+    if (await lessthan1MB(filePickerResult!.files.first)) {
+      print('is less than 1mb or lower');
+    } else {
+      print('is not less than 1mb or lower');
+    }
+  } catch (error) {
+    print(error);
   }
 }
+
+Future<bool> lessthan1MB(PlatformFile file) async {
+     return file.size < 1000000;
+}
+
+
+Future chooseAudio() async {
+  try {
+    final filePickerResult = await FilePicker.platform.pickFiles(type: FileType.audio);
+    if (await lessthan1MB(filePickerResult!.files.first)) {
+      print('is less than 1mb or lower');
+    } else {
+      print('is not less than 1mb or lower');
+    }
+  } catch (e) {
+    print(e.runtimeType);
+  }
+}
+
 
 //Game Level
 showgamelvl(BuildContext context) {
@@ -192,31 +217,28 @@ showgamelvl(BuildContext context) {
                                 fontsize: 20,
                               )),
                           SizedBox(
-                            height: 35,
-                            width: 300,
-                            child: CustomTextField(
-                              fontsize: 20,
-                            ),
-                          ),
+                              height: 35,
+                              width: 300,
+                              child: CustomTextField(
+                                fontsize: 20,
+                              )),
                           SizedBox(
                               height: 35,
                               width: 300,
                               child: CustomTextField(
-                                bottxt: finalFile.toString(),
                                 onPressed: () {
-                                  chosenFile();
+                                    chooseImage();
                                 },
                                 chooseIcon: Icons.image,
                               )),
-                              SizedBox(
+                          SizedBox(
                               height: 35,
                               width: 300,
                               child: CustomTextField(
-                                bottxt: finalFile.toString(),
                                 onPressed: () {
-                                  chosenFile();
+                                    chooseAudio();
                                 },
-                                chooseIcon: Icons.audio_file,
+                                chooseIcon: Icons.image,
                               )),
                         ],
                       ),
@@ -272,8 +294,8 @@ showGameDetails(BuildContext context) {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Image.network(
-                            'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+                          Image.asset(
+                            'lib/assets/images/sampleImage.jpg',
                             width: 250,
                             height: 250,
                             fit: BoxFit.cover,
